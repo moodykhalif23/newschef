@@ -157,18 +157,18 @@ function App() {
       </div>
 
       <div className="right-panel">
-        <h2>News Discovery</h2>
-
-        {/* Search News */}
-        <div className="search-section">
-          <h2>Search News</h2>
-          <input
-            type="text"
-            placeholder="e.g., food, technology"
-            value={newsQuery}
-            onChange={(e) => setNewsQuery(e.target.value)}
-          />
-          <button onClick={() => fetchNews(newsQuery)}>Search</button>
+        <div className="news-header-fixed">
+          <h2>News Discovery</h2>
+          {/* Search News */}
+          <div className="search-section">
+            <input
+              type="text"
+              placeholder="e.g., food, technology"
+              value={newsQuery}
+              onChange={(e) => setNewsQuery(e.target.value)}
+            />
+            <button onClick={() => fetchNews(newsQuery)}>Search</button>
+          </div>
         </div>
 
         {/* News List */}
