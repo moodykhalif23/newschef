@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -119,6 +120,14 @@ app.get('/api/news', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+// Serve static files from the React app build directory
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Catch all handler: send back React's index.html file for client-side routing
+app.use(/(.*)/, (req, res) => {
+  res.sendFile(path.join(__dirname, 'build/index.html'));
 });
 
 app.listen(PORT, () => {
