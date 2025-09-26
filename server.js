@@ -11,6 +11,8 @@ app.use(express.json());
 
 const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY;
 const SPOONACULAR_BASE_URL = 'https://api.spoonacular.com';
+const NEWS_API_KEY = process.env.NEWS_API_KEY;
+const NEWS_BASE_URL = 'https://newsapi.org/v2';
 
 // Search recipes by query
 app.get('/api/recipes', async (req, res) => {
@@ -94,6 +96,25 @@ app.get('/api/recipes/:id/nutritionWidget.json', async (req, res) => {
         apiKey: SPOONACULAR_API_KEY
       }
     });
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get news
+app.get('/api/news', async (req, res) => {
+  const { query = 'general', country = 'us' } = req.query;
+  try {
+    const endpoint = query === 'general' ? 'top-headlines' : 'everything';
+    const params = { apiKey: NEWS_API_KEY };
+    if (query === 'general') {
+      params.country = country;
+    } else {
+      params.q = query;
+      params.language = 'en';
+    }
+    const response = await axios.get(`${NEWS_BASE_URL}/${endpoint}`, { params });
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ error: error.message });
