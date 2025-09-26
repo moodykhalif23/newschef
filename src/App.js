@@ -90,8 +90,12 @@ function App() {
 
   return (
     <div className="App">
-      <div className="left-panel">
-        <h1>Recipe Discovery</h1>
+      <header className="app-header">
+        <h1>Chef App</h1>
+      </header>
+      <div className="panels-container">
+        <div className="left-panel">
+        <h2>Recipe Discovery</h2>
 
         {/* Search by Query */}
         <div className="search-section">
@@ -153,7 +157,7 @@ function App() {
       </div>
 
       <div className="right-panel">
-        <h1>News Discovery</h1>
+        <h2>News Discovery</h2>
 
         {/* Search News */}
         <div className="search-section">
@@ -182,6 +186,7 @@ function App() {
             ))
           )}
         </div>
+      </div>
       </div>
 
       {/* Recipe Details Modal */}
