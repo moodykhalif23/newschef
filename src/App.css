@@ -34,6 +34,17 @@
   overflow-y: auto;
   padding: 20px;
   height: 100%;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.left-panel::-webkit-scrollbar,
+.right-panel::-webkit-scrollbar {
+  display: none;
+}
+
+.right-panel {
+  padding-top: 120px;
 }
 
 .left-panel {
@@ -103,9 +114,7 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.right-panel .news-list {
-  margin-top: 180px;
-}
+
 
 .h1 {
   position: sticky;
