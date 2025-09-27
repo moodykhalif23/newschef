@@ -67,27 +67,6 @@ app.get('/api/recipes/findByIngredients', async (req, res) => {
   }
 });
 
-// Generate meal plan
-app.post('/api/mealplan/generate', async (req, res) => {
-  const { timeFrame = 'day', targetCalories, diet, exclude } = req.body;
-  try {
-    const params = {
-      apiKey: SPOONACULAR_API_KEY,
-      timeFrame
-    };
-    if (targetCalories) params.targetCalories = targetCalories;
-    if (diet) params.diet = diet;
-    if (exclude) params.exclude = exclude;
-
-    const response = await axios.get(`${SPOONACULAR_BASE_URL}/recipes/mealplans/generate`, {
-      params
-    });
-    res.json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
 // Get nutritional info for a recipe
 app.get('/api/recipes/:id/nutritionWidget.json', async (req, res) => {
   const { id } = req.params;
