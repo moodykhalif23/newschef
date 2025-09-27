@@ -7,7 +7,6 @@ function App() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [mealPlan, setMealPlan] = useState(null);
   const [news, setNews] = useState([]);
   const [newsLoading, setNewsLoading] = useState(false);
   const [newsQuery, setNewsQuery] = useState('');
@@ -49,32 +48,6 @@ function App() {
     }
   };
 
-  const generateMealPlan = async () => {
-    setLoading(true);
-    try {
-      if (recipes.length >= 3) {
-        // If recipes available, use first 3 for demo meal plan
-        const plan = {
-          meals: recipes.slice(0, 3).map((r, i) => ({
-            id: r.id,
-            title: r.title,
-            image: r.image.split('-')[1], // e.g., '556x370'
-            readyInMinutes: r.readyInMinutes || 30,
-            mealType: i === 0 ? 'breakfast' : i === 1 ? 'lunch' : 'dinner'
-          }))
-        };
-        console.log('Mock meal plan generated:', plan);
-        setMealPlan(plan);
-      } else {
-        // Fallback: generate random plan or show message
-        alert('Please search for recipes first to generate a meal plan.');
-      }
-    } catch (error) {
-      console.error('Meal plan error:', error.message);
-    }
-    setLoading(false);
-  };
-
   return (
     <div className="App">
       <header className="app-header">
@@ -94,24 +67,6 @@ function App() {
             />
             <button onClick={searchRecipes}>Search</button>
           </div>
-        </div>
-
-        {/* Meal Plan */}
-        <div>
-          <h2>Generate Meal Plan</h2>
-          <button onClick={generateMealPlan} disabled={loading}>Generate Day Plan</button>
-          {mealPlan && (
-            <div className="meal-plan">
-              {mealPlan.meals && mealPlan.meals.map(meal => (
-                <div key={meal.id} className="meal">
-                  <h4>{meal.title}</h4>
-                  <img src={`https://spoonacular.com/recipeImages/${meal.id}-312x231.${meal.image}`} alt={meal.title} width={100} />
-                  <p>Ready in {meal.readyInMinutes} min</p>
-                </div>
-              ))}
-              <button onClick={() => setMealPlan(null)}>Close</button>
-            </div>
-          )}
         </div>
 
         {/* Recipes List */}

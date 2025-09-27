@@ -246,18 +246,6 @@
   background-color: #0056b3;
 }
 
-.meal-plan {
-  margin-top: 20px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-}
-
-.meal-plan .meal {
-  margin-bottom: 10px;
-}
-
 .news-list {
   display: flex;
   flex-wrap: wrap;
