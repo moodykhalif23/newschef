@@ -4,7 +4,6 @@ import './App.css';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [ingredients, setIngredients] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -35,18 +34,6 @@ function App() {
     try {
       const response = await axios.get(`http://localhost:5000/api/recipes?query=${searchQuery}`);
       setRecipes(response.data.results || []);
-    } catch (error) {
-      console.error(error);
-    }
-    setLoading(false);
-  };
-
-  const searchByIngredients = async () => {
-    if (!ingredients) return;
-    setLoading(true);
-    try {
-      const response = await axios.get(`http://localhost:5000/api/recipes/findByIngredients?ingredients=${ingredients}`);
-      setRecipes(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -95,30 +82,18 @@ function App() {
       </header>
       <div className="panels-container">
         <div className="left-panel">
-        <h2>Recipe Discovery</h2>
-
-        {/* Search by Query */}
-        <div className="search-section">
-          <h2>Search Recipes</h2>
-          <input
-            type="text"
-            placeholder="e.g., chicken soup"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button onClick={searchRecipes}>Search</button>
-        </div>
-
-        {/* Search by Ingredients */}
-        <div className="search-section">
-          <h2>Find Recipes by Ingredients</h2>
-          <input
-            type="text"
-            placeholder="e.g., chicken, rice, broccoli"
-            value={ingredients}
-            onChange={(e) => setIngredients(e.target.value)}
-          />
-          <button onClick={searchByIngredients}>Find</button>
+        <div className="recipe-header-fixed">
+          <h2>Recipe Discovery</h2>
+          {/* Search by Query */}
+          <div className="search-section">
+            <input
+              type="text"
+              placeholder="e.g., chicken soup"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button onClick={searchRecipes}>Search</button>
+          </div>
         </div>
 
         {/* Meal Plan */}
